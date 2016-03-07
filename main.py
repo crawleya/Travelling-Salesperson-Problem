@@ -23,16 +23,39 @@ def makeMatrix(theList):
       distMatrix[c1id,c2id] = findDistance(x1,y1,x2,y2)
   return distMatrix
 
-#Function to calculate the tour
+#Function to calculate length of a path
+#Input: a path list in the form [[city1ID, x1, y1], [city2ID, x2, y2]...]
+#Output: an integer that is the length of the path
+
+def pathLength(pathList):
+  return sum(findDistance(pathList[n-1][1], pathList[n-1][2], pathList[n][1], pathList[n][2]) for n in range(len(pathList)))
+
+#Function to calculate the tour using the nearest neighbor algorithm
 #Input: a list in the form [[city1ID, x1, y1], [city2ID, x2, y2], ...]
 #Output: a list in the form [length of tour, city1, city2, city3,...]
-def calculateTour(theList):
-  tourList = [3,5,6,7] #Placeholder
+def nearestNeighbor(theList):
+  #tourList will end up being the tour in the form [path length, city1, city2,...]
+  tourList = []
+  #unvisited is the list of cities that have not yet been visited
+  unvisited = list(theList)
+  #visited is the list of cities that have been visited - first city is last one in list of cities
+  visited = [unvisited.pop()]
+  while unvisited:
+    #Find the city that is closest to the current city
+    city = min(unvisited, key=lambda c: findDistance(visited[-1][1], visited[-1][2], c[1], c[2]))
+    #Add the closest city to the visited list and remove from unvisited list
+    visited.append(city)
+    unvisited.remove(city)
+  #Find the length of the tour and add that to the tourList
+  tourList.append(pathLength(visited))
+  #Add the list of cities to the tourList
+  for i in range(len(visited)):
+    tourList.append(visited[i][0])
   return tourList
 
 #Get input and output files
 if len(sys.argv) != 2:
-  print("Correct usage: python main.py nameofFile.txt")
+  print("Corret usage: python main.py nameofFile.txt")
   sys.exit()
 
 inputFile = sys.argv[1]
@@ -44,7 +67,7 @@ with open(inputFile,'r') as f:
   values=[map(int,line.split()) for line in f]
 
 #Call function to calculate the length of tour and the order of the cities visited
-tourList = calculateTour(values)
+tourList = nearestNeighbor(values)
 
 #open output file and write tour to it
 target = open(outputFile,'w')
