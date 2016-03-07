@@ -7,9 +7,7 @@ This program calculates the length and route of a TSP tour.
 
 The program accepts problem instances as text files on the command line.
 
-The problem instance will be a text file.
-
-Each line defines a city with an identifier, the x-coordinate, and the y-coordinate separated by white space
+Each line of the input file defines a city with an identifier, the x-coordinate, and the y-coordinate separated by white space
 
 To execute:
 
