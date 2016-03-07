@@ -32,7 +32,7 @@ def calculateTour(theList):
 
 #Get input and output files
 if len(sys.argv) != 2:
-  print("Corret usage: python main.py nameofFile.txt")
+  print("Correct usage: python main.py nameofFile.txt")
   sys.exit()
 
 inputFile = sys.argv[1]
