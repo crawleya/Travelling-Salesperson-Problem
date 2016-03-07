@@ -61,10 +61,10 @@ def nearestNeighbor(theList):
     unvisited.remove(city)
   #Find the length of the tour and add that to the tourList
   newTour = twoOptimization(visited)
-  tourList.append(pathLength(visited))
+  tourList.append(pathLength(newTour))
   #Add the list of cities to the tourList
-  for i in range(len(visited)):
-    tourList.append(visited[i][0])
+  for i in range(len(newTour)):
+    tourList.append(newTour[i][0])
   return tourList
 
 #Get input and output files
