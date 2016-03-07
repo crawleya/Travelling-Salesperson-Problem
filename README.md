@@ -1,7 +1,7 @@
 # Travelling-Salesperson-Problem
 Project 4, Group 13
 
-Janel Buckingham, Alisha Crawley-Davis, Sara Sakamoto\n
+Janel Buckingham, Alisha Crawley-Davis, Sara Sakamoto
 
 This program calculates the length and route of a TSP tour.
 
