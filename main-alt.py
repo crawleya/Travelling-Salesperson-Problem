@@ -59,8 +59,27 @@ def nearestNeighbor(theList):
     #Add the closest city to the visited list and remove from unvisited list
     visited.append(city)
     unvisited.remove(city)
-  #Find the length of the tour and add that to the tourList
+  
+  #perform first optimization
   newTour = twoOptimization(visited)
+
+  #Determine number of additional optimizations possible with number of nodes
+  nodes = len(visited)
+
+  #If few nodes, keep optimizing until it doesn't help anymore
+  if nodes <= 2000:
+      cur_len = pathLength(newTour)
+      newTour = twoOptimization(newTour)
+      new_len = pathLength(newTour)
+      while new_len < cur_len:
+          cur_len = new_len
+          newTour = twoOptimization(newTour)
+          new_len = pathLength(newTour)
+  #For intermediate amounts, run 2-opt once more
+  elif nodes <=5000:
+      newTour = twoOptimization(newTour)
+  
+  #Find the length of the tour and add that to the tourList
   tourList.append(pathLength(newTour))
   #Add the list of cities to the tourList
   for i in range(len(newTour)):
