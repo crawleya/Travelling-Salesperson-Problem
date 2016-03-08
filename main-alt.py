@@ -11,23 +11,13 @@ import math
 def findDistance(x1, y1, x2, y2):
   return int(round(math.sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2))))
 
-#Function to make a matrix that gives the distance between all cities
-# Input: a list in the form [[city1ID, x1, y1], [city2ID, x2, y2], ...]
-# Output: a matrix of the distances between any two cities
-#distMatrix[1,2] returns the distance between City 1 and City 2
-#Note: Do not use for large n like Example 3!!
-def makeMatrix(theList):
-  distMatrix = {}
-  for i, (c1id,x1,y1) in enumerate(theList):
-    for j, (c2id,x2,y2) in enumerate(theList):
-      distMatrix[c1id,c2id] = findDistance(x1,y1,x2,y2)
-  return distMatrix
-
 #Function to calculate length of a path
 #Input: a path list in the form [[city1ID, x1, y1], [city2ID, x2, y2]...]
 #Output: an integer that is the length of the path
 def pathLength(pathList):
-  return sum(findDistance(pathList[n-1][1], pathList[n-1][2], pathList[n][1], pathList[n][2]) for n in range(len(pathList)))
+  dist = sum(findDistance(pathList[n-1][1], pathList[n-1][2], pathList[n][1], pathList[n][2]) for n in range(len(pathList)))
+  dist = dist + findDistance(pathList[-1][1], pathList[-1][2], pathList[0][1], pathList[0][2])
+  return dist
 
 #Function to check if there is a better tour
 #Input: a list in the form [[city1ID, x1, y1], [city2ID, x2, y2],...]
@@ -88,7 +78,7 @@ def nearestNeighbor(theList):
 
 #Get input and output files
 if len(sys.argv) != 2:
-  print("Corret usage: python main.py nameofFile.txt")
+  print("Correct usage: python main.py nameOfFile.txt")
   sys.exit()
 
 inputFile = sys.argv[1]

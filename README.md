@@ -11,9 +11,9 @@ Each line of the input file defines a city with an identifier, the x-coordinate,
 
 To execute:
 
-chmod +x main.py
+chmod +x main-alt.py
 
-python main.py inputfilename
+python main-alt.py inputfilename
 
 The output file will be inputfilename.tour
 
