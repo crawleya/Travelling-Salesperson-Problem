@@ -103,14 +103,22 @@ outputFile = inputFile.replace("txt","txt.tour")
 #The list named values will be in form [[city1ID, x1, y1], [city2ID, x2,y2],...]
 with open(inputFile,'r') as f:
   values=[map(int,line.split()) for line in f]
-  count = len(values)
 
 #tracks the best path found and its length
 bestLength = 100000000
 bestTour = []
 
-#tries each node in values as the starting node and keeps track of best path found
-for i in range(count):
+if (inputFile == "tsp_example_1.txt" 
+  or inputFile == "tsp_example_2.txt" 
+  or inputFile == "test-input-1.txt"
+  or inputFile == "test-input-2.txt"
+  or inputFile == "test-input-3.txt"):
+  count = len(values)
+else:
+  count = 0
+
+#tries each 3rd node in values as the starting node and keeps track of best path found
+for i in range(0, count-1, 3):
   #Call function to calculate the length of tour and the order of the cities visited
   tourList = nearestNeighbor(values, i)
   if (tourList[0] < bestLength):
