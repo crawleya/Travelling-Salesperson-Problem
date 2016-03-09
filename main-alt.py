@@ -42,7 +42,7 @@ def nearestNeighbor(theList):
   #unvisited is the list of cities that have not yet been visited
   unvisited = list(theList)
   #visited is the list of cities that have been visited - first city is last one in list of cities
-  visited = [unvisited.pop()]
+  visited = [unvisited.pop(0)]
   while unvisited:
     #Find the city that is closest to the current city
     city = min(unvisited, key=lambda c: findDistance(visited[-1][1], visited[-1][2], c[1], c[2]))
