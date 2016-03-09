@@ -36,11 +36,26 @@ def twoOptimization(tl):
 #Function to calculate the tour using the nearest neighbor algorithm
 #Input: a list in the form [[city1ID, x1, y1], [city2ID, x2, y2], ...]
 #Output: a list in the form [length of tour, city1, city2, city3,...]
-def nearestNeighbor(theList):
+def nearestNeighbor(theList, index):
   #tourList will end up being the tour in the form [path length, city1, city2,...]
   tourList = []
+  
+  tl = list(theList)
   #unvisited is the list of cities that have not yet been visited
-  unvisited = list(theList)
+  unvisited = []
+
+  #shifts the contents of tl circularly so that 'index' is the first node in unvisited
+  #and wraps when the end of tl is reached
+  for i in range(len(tl) - 1):
+    if (index + i <= len(tl) - 1):
+      unvisited.append(tl[index + i])
+    else:
+      break
+
+  itemsLeft = len(tl) - len(unvisited)
+  for i in range(itemsLeft):
+    unvisited.append(tl[i])
+
   #visited is the list of cities that have been visited - first city is last one in list of cities
   visited = [unvisited.pop()]
   while unvisited:
@@ -88,13 +103,23 @@ outputFile = inputFile.replace("txt","txt.tour")
 #The list named values will be in form [[city1ID, x1, y1], [city2ID, x2,y2],...]
 with open(inputFile,'r') as f:
   values=[map(int,line.split()) for line in f]
+  count = len(values)
 
-#Call function to calculate the length of tour and the order of the cities visited
-tourList = nearestNeighbor(values)
+#tracks the best path found and its length
+bestLength = 100000000
+bestTour = []
 
-#open output file and write tour to it
+#tries each node in values as the starting node and keeps track of best path found
+for i in range(count):
+  #Call function to calculate the length of tour and the order of the cities visited
+  tourList = nearestNeighbor(values, i)
+  if (tourList[0] < bestLength):
+    bestLength = tourList[0]
+    bestTour = tourList[:]
+
+#open output file and write best tour to it
 target = open(outputFile,'w')
-for item in tourList:
+for item in bestTour:
   target.write("%s\n" % item)
 
 #close files
