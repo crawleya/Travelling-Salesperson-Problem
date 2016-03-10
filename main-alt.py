@@ -16,7 +16,7 @@ def findDistance(x1, y1, x2, y2):
 #Output: an integer that is the length of the path
 def pathLength(pathList):
   dist = sum(findDistance(pathList[n-1][1], pathList[n-1][2], pathList[n][1], pathList[n][2]) for n in range(len(pathList)))
-  dist = dist + findDistance(pathList[-1][1], pathList[-1][2], pathList[0][1], pathList[0][2])
+  #dist = dist + findDistance(pathList[-1][1], pathList[-1][2], pathList[0][1], pathList[0][2])
   return dist
 
 #Function to check if there is a better tour
@@ -46,7 +46,7 @@ def nearestNeighbor(theList, index):
 
   #shifts the contents of tl circularly so that 'index' is the first node in unvisited
   #and wraps when the end of tl is reached
-  for i in range(len(tl) - 1):
+  for i in range(len(tl)):
     if (index + i <= len(tl) - 1):
       unvisited.append(tl[index + i])
     else:
@@ -114,16 +114,18 @@ if (inputFile == "tsp_example_1.txt"
   or inputFile == "test-input-2.txt"
   or inputFile == "test-input-3.txt"):
   count = len(values)
-else:
-  count = 0
 
-#tries each 3rd node in values as the starting node and keeps track of best path found
-for i in range(0, count-1, 3):
-  #Call function to calculate the length of tour and the order of the cities visited
-  tourList = nearestNeighbor(values, i)
-  if (tourList[0] < bestLength):
-    bestLength = tourList[0]
-    bestTour = tourList[:]
+  #tries each 3rd node in values as the starting node and keeps track of best path found
+  for i in range(0, count-1, 3):
+    #Call function to calculate the length of tour and the order of the cities visited
+    tourList = nearestNeighbor(values, i)
+    if (tourList[0] < bestLength):
+      bestLength = tourList[0]
+      bestTour = tourList[:]
+else:
+  bestTour = nearestNeighbor(values, 0)
+
+
 
 #open output file and write best tour to it
 target = open(outputFile,'w')
