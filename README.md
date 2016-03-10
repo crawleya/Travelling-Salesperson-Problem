@@ -15,7 +15,7 @@ chmod +x main-alt.py
 
 python main-alt.py inputfilename
 
-The output file will be inputfilename.tour
+The output file will be inputfilename.txt.tour
 
 The first line will be the length of the tour.
 
